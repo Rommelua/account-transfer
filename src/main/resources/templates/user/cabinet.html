@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cabinet</title>
+</head>
+<body>
+<div class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/user/cabinet">Cabinet</a>
+            </li>
+            <li class="nav-item" style="position: absolute; right: 0">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<h2 style="margin-left: 20%" th:text="'Welcome, ' + ${user.login} + '!'"></h2>
+<br>
+<h4 style="margin-left: 10%">Your account details:</h4>
+<div class="container text-center">
+    <table class="table table-bordered text-center">
+        <thead class="thead-dark text-center">
+        <tr>
+            <th>Account number</th>
+            <th>Balance</th>
+        </tr>
+        </thead>
+        <tbody>
+            <td th:text="${account.id}"></td>
+            <td th:text="${account.balance}"></td>
+        </tbody>
+    </table>
+</div>
+<br>
+<form class="form-group" action="/transfer" style="text-align: center" method=post>
+    <div class="container col-lg-4 border" style="border-radius: 20px">
+        <h2 class="text-center">Make money transfer</h2>
+        <hr>
+        <div class="form-group">
+            <label for="id"></label>
+            <input type="number" min="1" class="form-control" placeholder="id" name="id" id="id" required>
+        </div>
+        <div class="form-group">
+            <label for="amount"></label>
+            <input type="number" step=".01" min="0.01" class="form-control" placeholder="amount" name="amount" id="amount" required>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Send</button>
+        <hr>
+    </div>
+</form>
+<br>
+<h4 style="margin-left: 10%">All users:</h4>
+<div class="container text-center" th:switch="${allUsers}">
+    <table class="table table-bordered text-center">
+        <thead class="thead-dark text-center">
+        <tr>
+            <th>Id</th>
+            <th>Login</th>
+            <th>Account number</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${allUsers}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.login}"></td>
+            <td th:text="${user.accountNumber}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

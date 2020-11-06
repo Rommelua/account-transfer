@@ -23,7 +23,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getById(Long id) {
-        return repository.findById(id).get();
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException(
+                        "Account with id No " + id + " not found"));
     }
 
     @Override
@@ -36,7 +38,7 @@ public class AccountServiceImpl implements AccountService {
     public void moveMoney(Account from, Account to, BigDecimal amount) {
         if (from.getBalance().compareTo(amount) < 0) {
             throw new NotEnoughMoneyException(
-                    "Not enough money to perform transfer on account " + from.getId());
+                    "Not enough money to perform transfer on your account No. " + from.getId());
         }
         from.setBalance(from.getBalance().subtract(amount));
         to.setBalance(to.getBalance().add(amount));

@@ -13,7 +13,7 @@ public class UserRequestDto {
     @NotNull(message = "Login can't be null")
     private String login;
     @NotNull(message = "Password can't be null")
-    @Size(min = 4)
+    @Size(min = 4, max = 16)
     private String password;
     private String passwordRepeat;
 
